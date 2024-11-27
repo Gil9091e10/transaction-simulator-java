@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="stp-transaction-heading"
+        data-cy="TransactionCreateUpdateHeading"
+        stpTranslate="simulatorApp.transaction.home.createOrEditLabel"
+      >
+        Crear o editar Transaction
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.transaction.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dateRef = editForm.get('date')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_date" stpTranslate="simulatorApp.transaction.date">Date</label>
+          <div class="d-flex">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="datetime-local"
+              class="form-control"
+              name="date"
+              formControlName="date"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateRef.invalid && (dateRef.dirty || dateRef.touched)) {
+            <div>
+              @if (editForm.get('date')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('date')?.errors?.datetimelocal"
+                stpTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let messageRef = editForm.get('message')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_message" stpTranslate="simulatorApp.transaction.message">Message</label>
+          <input type="text" class="form-control" name="message" id="field_message" data-cy="message" formControlName="message" />
+          @if (messageRef.invalid && (messageRef.dirty || messageRef.touched)) {
+            <div>
+              @if (editForm.get('message')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionType" stpTranslate="simulatorApp.transaction.transactionType"
+            >Transaction Type</label
+          >
+          <select
+            class="form-control"
+            id="field_transactionType"
+            data-cy="transactionType"
+            name="transactionType"
+            formControlName="transactionType"
+            [compareWith]="compareTransactionType"
+          >
+            <option [ngValue]="null"></option>
+            @for (transactionTypeOption of transactionTypesSharedCollection; track $index) {
+              <option [ngValue]="transactionTypeOption">{{ transactionTypeOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

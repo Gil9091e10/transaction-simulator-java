@@ -6,7 +6,7 @@ import com.transaction.project.simulator.app.repository.UserRepository;
 import com.transaction.project.simulator.app.security.AuthoritiesConstants;
 import com.transaction.project.simulator.app.service.MailService;
 import com.transaction.project.simulator.app.service.UserService;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
 import com.transaction.project.simulator.app.web.rest.errors.BadRequestAlertException;
 import com.transaction.project.simulator.app.web.rest.errors.EmailAlreadyUsedException;
 import com.transaction.project.simulator.app.web.rest.errors.LoginAlreadyUsedException;
@@ -107,7 +107,7 @@ public class UserResource {
      */
     @PostMapping("/users")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<User> createUser(@Valid @RequestBody AdminUserDTO userDTO) throws URISyntaxException {
+    public ResponseEntity<User> createUser(@Valid @RequestBody AdminUserDto userDTO) throws URISyntaxException {
         LOG.debug("REST request to save User : {}", userDTO);
 
         if (userDTO.getId() != null) {
@@ -136,9 +136,9 @@ public class UserResource {
      */
     @PutMapping({ "/users", "/users/{login}" })
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<AdminUserDTO> updateUser(
+    public ResponseEntity<AdminUserDto> updateUser(
         @PathVariable(name = "login", required = false) @Pattern(regexp = Constants.LOGIN_REGEX) String login,
-        @Valid @RequestBody AdminUserDTO userDTO
+        @Valid @RequestBody AdminUserDto userDTO
     ) {
         LOG.debug("REST request to update User : {}", userDTO);
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
@@ -149,7 +149,7 @@ public class UserResource {
         if (existingUser.isPresent() && (!existingUser.orElseThrow().getId().equals(userDTO.getId()))) {
             throw new LoginAlreadyUsedException();
         }
-        Optional<AdminUserDTO> updatedUser = userService.updateUser(userDTO);
+        Optional<AdminUserDto> updatedUser = userService.updateUser(userDTO);
 
         return ResponseUtil.wrapOrNotFound(
             updatedUser,
@@ -165,13 +165,13 @@ public class UserResource {
      */
     @GetMapping("/users")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<List<AdminUserDTO>> getAllUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<AdminUserDto>> getAllUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         LOG.debug("REST request to get all User for an admin");
         if (!onlyContainsAllowedProperties(pageable)) {
             return ResponseEntity.badRequest().build();
         }
 
-        final Page<AdminUserDTO> page = userService.getAllManagedUsers(pageable);
+        final Page<AdminUserDto> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -188,9 +188,9 @@ public class UserResource {
      */
     @GetMapping("/users/{login}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<AdminUserDTO> getUser(@PathVariable("login") @Pattern(regexp = Constants.LOGIN_REGEX) String login) {
+    public ResponseEntity<AdminUserDto> getUser(@PathVariable("login") @Pattern(regexp = Constants.LOGIN_REGEX) String login) {
         LOG.debug("REST request to get User : {}", login);
-        return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+        return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDto::new));
     }
 
     /**

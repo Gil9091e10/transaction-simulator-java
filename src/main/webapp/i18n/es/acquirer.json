@@ -1,0 +1,28 @@
+{
+  "simulatorApp": {
+    "acquirer": {
+      "home": {
+        "title": "Acquirers",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Acquirer",
+        "createOrEditLabel": "Crear o editar Acquirer",
+        "notFound": "Ningún Acquirers encontrado"
+      },
+      "created": "Un nuevo Acquirer ha sido creado con el identificador {{ param }}",
+      "updated": "Un Acquirer ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Acquirer ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Acquirer {{ id }}?"
+      },
+      "detail": {
+        "title": "Acquirer"
+      },
+      "id": "ID",
+      "name": "Name",
+      "socketUrl": "Socket Url",
+      "email": "Email",
+      "advice": "Advice",
+      "messageIsoConfig": "Message Iso Config"
+    }
+  }
+}

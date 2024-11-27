@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="stp-advice-heading" data-cy="AdviceCreateUpdateHeading" stpTranslate="simulatorApp.advice.home.createOrEditLabel">
+        Crear o editar Advice
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.advice.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let codeRef = editForm.get('code')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_code" stpTranslate="simulatorApp.advice.code">Code</label>
+          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          @if (codeRef.invalid && (codeRef.dirty || codeRef.touched)) {
+            <div>
+              @if (editForm.get('code')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('code')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '10' }"
+                  >Este campo no puede superar más de 10 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" stpTranslate="simulatorApp.advice.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_merchant" stpTranslate="simulatorApp.advice.merchant">Merchant</label>
+          <select
+            class="form-control"
+            id="field_merchant"
+            data-cy="merchant"
+            name="merchant"
+            formControlName="merchant"
+            [compareWith]="compareMerchant"
+          >
+            <option [ngValue]="null"></option>
+            @for (merchantOption of merchantsSharedCollection; track $index) {
+              <option [ngValue]="merchantOption">{{ merchantOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_acquirer" stpTranslate="simulatorApp.advice.acquirer">Acquirer</label>
+          <select
+            class="form-control"
+            id="field_acquirer"
+            data-cy="acquirer"
+            name="acquirer"
+            formControlName="acquirer"
+            [compareWith]="compareAcquirer"
+          >
+            <option [ngValue]="null"></option>
+            @for (acquirerOption of acquirersSharedCollection; track $index) {
+              <option [ngValue]="acquirerOption">{{ acquirerOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

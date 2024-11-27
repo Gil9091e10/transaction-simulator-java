@@ -1,0 +1,107 @@
+<div>
+  <h2 id="page-heading" data-cy="CreditCardHeading">
+    <span stpTranslate="simulatorApp.creditCard.home.title">Credit Cards</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.creditCard.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-credit-card"
+        [routerLink]="['/credit-card/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.creditCard.home.createLabel">Crear nuevo Credit Card</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (creditCards?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.creditCard.home.notFound">Ningún Credit Cards encontrado</span>
+    </div>
+  }
+
+  @if (creditCards && creditCards.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="maxLimit">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.creditCard.maxLimit">Max Limit</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (creditCard of creditCards; track trackId(creditCard)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/credit-card', creditCard.id, 'view']">{{ creditCard.id }}</a>
+              </td>
+              <td>{{ creditCard.maxLimit }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/credit-card', creditCard.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/credit-card', creditCard.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(creditCard)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (creditCards && creditCards.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

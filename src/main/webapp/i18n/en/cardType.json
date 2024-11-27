@@ -1,0 +1,25 @@
+{
+  "simulatorApp": {
+    "cardType": {
+      "home": {
+        "title": "Card Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Card Type",
+        "createOrEditLabel": "Create or edit a Card Type",
+        "notFound": "No Card Types found"
+      },
+      "created": "A new Card Type is created with identifier {{ param }}",
+      "updated": "A Card Type is updated with identifier {{ param }}",
+      "deleted": "A Card Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Card Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Card Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "card": "Card"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "simulatorApp": {
+    "advice": {
+      "home": {
+        "title": "Advice",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Advice",
+        "createOrEditLabel": "Create or edit a Advice",
+        "notFound": "No Advice found"
+      },
+      "created": "A new Advice is created with identifier {{ param }}",
+      "updated": "A Advice is updated with identifier {{ param }}",
+      "deleted": "A Advice is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Advice {{ id }}?"
+      },
+      "detail": {
+        "title": "Advice"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "merchant": "Merchant",
+      "acquirer": "Acquirer"
+    }
+  }
+}

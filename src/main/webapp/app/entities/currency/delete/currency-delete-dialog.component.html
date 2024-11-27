@@ -1,0 +1,24 @@
+@if (currency) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(currency.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="currencyDeleteDialogHeading" stpTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <stp-alert-error></stp-alert-error>
+      <p id="stp-delete-currency-heading" stpTranslate="simulatorApp.currency.delete.question" [translateValues]="{ id: currency.id }">
+        ¿Seguro que quiere eliminar Currency {{ currency.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="stp-confirm-delete-currency" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span stpTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

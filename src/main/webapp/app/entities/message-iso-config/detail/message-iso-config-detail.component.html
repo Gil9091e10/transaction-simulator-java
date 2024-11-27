@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (messageIsoConfig(); as messageIsoConfigRef) {
+      <div>
+        <h2 data-cy="messageIsoConfigDetailsHeading">
+          <span stpTranslate="simulatorApp.messageIsoConfig.detail.title">Message Iso Config</span>
+        </h2>
+
+        <hr />
+
+        <stp-alert-error></stp-alert-error>
+
+        <stp-alert></stp-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span stpTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ messageIsoConfigRef.id }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageIsoConfig.name">Name</span></dt>
+          <dd>
+            <span>{{ messageIsoConfigRef.name }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageIsoConfig.filename">Filename</span></dt>
+          <dd>
+            <span>{{ messageIsoConfigRef.filename }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageIsoConfig.acquirer">Acquirer</span></dt>
+          <dd>
+            @if (messageIsoConfig()!.acquirer) {
+              <div>
+                <a [routerLink]="['/acquirer', messageIsoConfig()!.acquirer?.id, 'view']">{{ messageIsoConfigRef.acquirer?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageIsoConfig.messageTypeIndicator">Message Type Indicator</span></dt>
+          <dd>
+            @if (messageIsoConfig()!.messageTypeIndicator) {
+              <div>
+                <a [routerLink]="['/message-type-indicator', messageIsoConfig()!.messageTypeIndicator?.id, 'view']">{{
+                  messageIsoConfigRef.messageTypeIndicator?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span stpTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/message-iso-config', messageIsoConfigRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span stpTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

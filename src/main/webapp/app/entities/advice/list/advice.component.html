@@ -1,0 +1,141 @@
+<div>
+  <h2 id="page-heading" data-cy="AdviceHeading">
+    <span stpTranslate="simulatorApp.advice.home.title">Advice</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.advice.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-advice"
+        [routerLink]="['/advice/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.advice.home.createLabel">Crear nuevo Advice</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (advice?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.advice.home.notFound">Ningún Advice encontrado</span>
+    </div>
+  }
+
+  @if (advice && advice.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="code">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.advice.code">Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="name">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.advice.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="merchant.id">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.advice.merchant">Merchant</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="acquirer.id">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.advice.acquirer">Acquirer</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (advice of advice; track trackId(advice)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/advice', advice.id, 'view']">{{ advice.id }}</a>
+              </td>
+              <td>{{ advice.code }}</td>
+              <td>{{ advice.name }}</td>
+              <td>
+                @if (advice.merchant) {
+                  <div>
+                    <a [routerLink]="['/merchant', advice.merchant.id, 'view']">{{ advice.merchant.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (advice.acquirer) {
+                  <div>
+                    <a [routerLink]="['/acquirer', advice.acquirer.id, 'view']">{{ advice.acquirer.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/advice', advice.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/advice', advice.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(advice)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (advice && advice.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

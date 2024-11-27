@@ -1,0 +1,52 @@
+<div>
+  <h2>
+    <span id="metrics-page-heading" data-cy="metricsPageHeading" stpTranslate="metrics.title">Métricas de aplicación</span>
+
+    <button class="btn btn-primary float-end" (click)="refresh()">
+      <fa-icon icon="sync"></fa-icon> <span stpTranslate="metrics.refresh.button">Refrescar</span>
+    </button>
+  </h2>
+
+  <h3 stpTranslate="metrics.jvm.title">Métricas de JVM</h3>
+
+  @let metricsRef = metrics();
+  @if (metricsRef && !updatingMetrics()) {
+    <div class="row">
+      <stp-jvm-memory class="col-md-4" [updating]="updatingMetrics()" [jvmMemoryMetrics]="metricsRef.jvm"></stp-jvm-memory>
+
+      <stp-jvm-threads class="col-md-4" [threads]="threads()"></stp-jvm-threads>
+
+      <stp-metrics-system class="col-md-4" [updating]="updatingMetrics()" [systemMetrics]="metricsRef.processMetrics"></stp-metrics-system>
+    </div>
+  }
+
+  @if (metricsRef?.garbageCollector; as metricsRefGarbageCollector) {
+    <stp-metrics-garbagecollector
+      [updating]="updatingMetrics()"
+      [garbageCollectorMetrics]="metricsRefGarbageCollector"
+    ></stp-metrics-garbagecollector>
+  }
+
+  @if (updatingMetrics()) {
+    <div class="well well-lg" stpTranslate="metrics.updating">Actualizando...</div>
+  }
+
+  @if (metricsRef?.['http.server.requests']; as metricsRefHttpServerRequests) {
+    <stp-metrics-request [updating]="updatingMetrics()" [requestMetrics]="metricsRefHttpServerRequests"></stp-metrics-request>
+  }
+
+  @if (metricsRef?.services; as metricsRefServices) {
+    <stp-metrics-endpoints-requests
+      [updating]="updatingMetrics()"
+      [endpointsRequestsMetrics]="metricsRefServices"
+    ></stp-metrics-endpoints-requests>
+  }
+
+  @if (metricsRef?.cache; as metricsRefCache) {
+    <stp-metrics-cache [updating]="updatingMetrics()" [cacheMetrics]="metricsRefCache"></stp-metrics-cache>
+  }
+
+  @if (metricsRef && metricsKeyExistsAndObjectNotEmpty('databases')) {
+    <stp-metrics-datasource [updating]="updatingMetrics()" [datasourceMetrics]="metricsRef.databases"></stp-metrics-datasource>
+  }
+</div>

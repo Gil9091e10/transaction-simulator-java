@@ -1,0 +1,139 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="stp-card-heading" data-cy="CardCreateUpdateHeading" stpTranslate="simulatorApp.card.home.createOrEditLabel">
+        Crear o editar Card
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.card.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let numberRef = editForm.get('number')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_number" stpTranslate="simulatorApp.card.number">Number</label>
+          <input type="number" class="form-control" name="number" id="field_number" data-cy="number" formControlName="number" />
+          @if (numberRef.invalid && (numberRef.dirty || numberRef.touched)) {
+            <div>
+              @if (editForm.get('number')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('number')?.errors?.number"
+                stpTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expirationDate" stpTranslate="simulatorApp.card.expirationDate">Expiration Date</label>
+          <div class="input-group">
+            <input
+              id="field_expirationDate"
+              data-cy="expirationDate"
+              type="text"
+              class="form-control"
+              name="expirationDate"
+              ngbDatepicker
+              #expirationDateDp="ngbDatepicker"
+              formControlName="expirationDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="expirationDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_verificationValue" stpTranslate="simulatorApp.card.verificationValue"
+            >Verification Value</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="verificationValue"
+            id="field_verificationValue"
+            data-cy="verificationValue"
+            formControlName="verificationValue"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_accountBank" stpTranslate="simulatorApp.card.accountBank">Account Bank</label>
+          <select
+            class="form-control"
+            id="field_accountBank"
+            data-cy="accountBank"
+            name="accountBank"
+            formControlName="accountBank"
+            [compareWith]="compareAccountBank"
+          >
+            <option [ngValue]="null"></option>
+            @for (accountBankOption of accountBanksCollection; track $index) {
+              <option [ngValue]="accountBankOption">{{ accountBankOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cardType" stpTranslate="simulatorApp.card.cardType">Card Type</label>
+          <select
+            class="form-control"
+            id="field_cardType"
+            data-cy="cardType"
+            name="cardType"
+            formControlName="cardType"
+            [compareWith]="compareCardType"
+          >
+            <option [ngValue]="null"></option>
+            @for (cardTypeOption of cardTypesSharedCollection; track $index) {
+              <option [ngValue]="cardTypeOption">{{ cardTypeOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_issuer" stpTranslate="simulatorApp.card.issuer">Issuer</label>
+          <select
+            class="form-control"
+            id="field_issuer"
+            data-cy="issuer"
+            name="issuer"
+            formControlName="issuer"
+            [compareWith]="compareIssuer"
+          >
+            <option [ngValue]="null"></option>
+            @for (issuerOption of issuersSharedCollection; track $index) {
+              <option [ngValue]="issuerOption">{{ issuerOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div>
+  <h2 id="page-heading" data-cy="IssuerHeading">
+    <span stpTranslate="simulatorApp.issuer.home.title">Issuers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.issuer.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-issuer"
+        [routerLink]="['/issuer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.issuer.home.createLabel">Crear nuevo Issuer</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (issuers?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.issuer.home.notFound">Ningún Issuers encontrado</span>
+    </div>
+  }
+
+  @if (issuers && issuers.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="code">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.issuer.code">Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="name">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.issuer.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (issuer of issuers; track trackId(issuer)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/issuer', issuer.id, 'view']">{{ issuer.id }}</a>
+              </td>
+              <td>{{ issuer.code }}</td>
+              <td>{{ issuer.name }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/card']"
+                    [queryParams]="{ 'filter[issuerId.in]': issuer.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      stpTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('simulatorApp.issuer.card' | translate) }"
+                      >Show Card</span
+                    >
+                  </button>
+                  <a [routerLink]="['/issuer', issuer.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/issuer', issuer.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(issuer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (issuers && issuers.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

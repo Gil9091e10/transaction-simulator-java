@@ -2,8 +2,8 @@ package com.transaction.project.simulator.app.service.mapper;
 
 import com.transaction.project.simulator.app.domain.Authority;
 import com.transaction.project.simulator.app.domain.User;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
-import com.transaction.project.simulator.app.service.dto.UserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
+import com.transaction.project.simulator.app.service.dto.UserDto;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.mapstruct.BeanMapping;
@@ -12,7 +12,7 @@ import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 
 /**
- * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
+ * Mapper for the entity {@link User} and its DTO called {@link UserDto}.
  *
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
@@ -20,27 +20,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserMapper {
 
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
+    public List<UserDto> usersToUserDTOs(List<User> users) {
         return users.stream().filter(Objects::nonNull).map(this::userToUserDTO).toList();
     }
 
-    public UserDTO userToUserDTO(User user) {
-        return new UserDTO(user);
+    public UserDto userToUserDTO(User user) {
+        return new UserDto(user);
     }
 
-    public List<AdminUserDTO> usersToAdminUserDTOs(List<User> users) {
+    public List<AdminUserDto> usersToAdminUserDTOs(List<User> users) {
         return users.stream().filter(Objects::nonNull).map(this::userToAdminUserDTO).toList();
     }
 
-    public AdminUserDTO userToAdminUserDTO(User user) {
-        return new AdminUserDTO(user);
+    public AdminUserDto userToAdminUserDTO(User user) {
+        return new AdminUserDto(user);
     }
 
-    public List<User> userDTOsToUsers(List<AdminUserDTO> userDTOs) {
+    public List<User> userDTOsToUsers(List<AdminUserDto> userDTOs) {
         return userDTOs.stream().filter(Objects::nonNull).map(this::userDTOToUser).toList();
     }
 
-    public User userDTOToUser(AdminUserDTO userDTO) {
+    public User userDTOToUser(AdminUserDto userDTO) {
         if (userDTO == null) {
             return null;
         } else {
@@ -92,11 +92,11 @@ public class UserMapper {
     @Named("id")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    public UserDTO toDtoId(User user) {
+    public UserDto toDtoId(User user) {
         if (user == null) {
             return null;
         }
-        UserDTO userDto = new UserDTO();
+        UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         return userDto;
     }
@@ -104,12 +104,12 @@ public class UserMapper {
     @Named("idSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    public Set<UserDTO> toDtoIdSet(Set<User> users) {
+    public Set<UserDto> toDtoIdSet(Set<User> users) {
         if (users == null) {
             return Collections.emptySet();
         }
 
-        Set<UserDTO> userSet = new HashSet<>();
+        Set<UserDto> userSet = new HashSet<>();
         for (User userEntity : users) {
             userSet.add(this.toDtoId(userEntity));
         }
@@ -121,11 +121,11 @@ public class UserMapper {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "login", source = "login")
-    public UserDTO toDtoLogin(User user) {
+    public UserDto toDtoLogin(User user) {
         if (user == null) {
             return null;
         }
-        UserDTO userDto = new UserDTO();
+        UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setLogin(user.getLogin());
         return userDto;
@@ -135,12 +135,12 @@ public class UserMapper {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "login", source = "login")
-    public Set<UserDTO> toDtoLoginSet(Set<User> users) {
+    public Set<UserDto> toDtoLoginSet(Set<User> users) {
         if (users == null) {
             return Collections.emptySet();
         }
 
-        Set<UserDTO> userSet = new HashSet<>();
+        Set<UserDto> userSet = new HashSet<>();
         for (User userEntity : users) {
             userSet.add(this.toDtoLogin(userEntity));
         }

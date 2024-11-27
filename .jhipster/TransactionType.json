@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20241127065802"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "5"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "TransactionType",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "transaction",
+      "otherEntityRelationshipName": "transactionType",
+      "relationshipName": "transaction",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

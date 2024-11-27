@@ -18,7 +18,7 @@ public class ExceptionTranslatorTestController {
     }
 
     @PostMapping("/method-argument")
-    public void methodArgument(@Valid @RequestBody TestDTO testDTO) {
+    public void methodArgument(@Valid @RequestBody TestDto testDto) {
         // empty method
     }
 
@@ -52,7 +52,7 @@ public class ExceptionTranslatorTestController {
         throw new RuntimeException();
     }
 
-    public static class TestDTO {
+    public static class TestDto {
 
         @NotNull
         private String test;

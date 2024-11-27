@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="stp-message-iso-config-heading"
+        data-cy="MessageIsoConfigCreateUpdateHeading"
+        stpTranslate="simulatorApp.messageIsoConfig.home.createOrEditLabel"
+      >
+        Crear o editar Message Iso Config
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.messageIsoConfig.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" stpTranslate="simulatorApp.messageIsoConfig.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let filenameRef = editForm.get('filename')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_filename" stpTranslate="simulatorApp.messageIsoConfig.filename">Filename</label>
+          <input type="text" class="form-control" name="filename" id="field_filename" data-cy="filename" formControlName="filename" />
+          @if (filenameRef.invalid && (filenameRef.dirty || filenameRef.touched)) {
+            <div>
+              @if (editForm.get('filename')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('filename')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '255' }"
+                  >Este campo no puede superar más de 255 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_acquirer" stpTranslate="simulatorApp.messageIsoConfig.acquirer">Acquirer</label>
+          <select
+            class="form-control"
+            id="field_acquirer"
+            data-cy="acquirer"
+            name="acquirer"
+            formControlName="acquirer"
+            [compareWith]="compareAcquirer"
+          >
+            <option [ngValue]="null"></option>
+            @for (acquirerOption of acquirersSharedCollection; track $index) {
+              <option [ngValue]="acquirerOption">{{ acquirerOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_messageTypeIndicator" stpTranslate="simulatorApp.messageIsoConfig.messageTypeIndicator"
+            >Message Type Indicator</label
+          >
+          <select
+            class="form-control"
+            id="field_messageTypeIndicator"
+            data-cy="messageTypeIndicator"
+            name="messageTypeIndicator"
+            formControlName="messageTypeIndicator"
+            [compareWith]="compareMessageTypeIndicator"
+          >
+            <option [ngValue]="null"></option>
+            @for (messageTypeIndicatorOption of messageTypeIndicatorsSharedCollection; track $index) {
+              <option [ngValue]="messageTypeIndicatorOption">{{ messageTypeIndicatorOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

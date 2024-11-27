@@ -1,0 +1,146 @@
+<div>
+  <h2 id="page-heading" data-cy="MerchantHeading">
+    <span stpTranslate="simulatorApp.merchant.home.title">Merchants</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.merchant.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-merchant"
+        [routerLink]="['/merchant/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.merchant.home.createLabel">Crear nuevo Merchant</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (merchants?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.merchant.home.notFound">Ningún Merchants encontrado</span>
+    </div>
+  }
+
+  @if (merchants && merchants.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="name">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.merchant.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="mcc">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.merchant.mcc">Mcc</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="postalCode">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.merchant.postalCode">Postal Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="website">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.merchant.website">Website</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (merchant of merchants; track trackId(merchant)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/merchant', merchant.id, 'view']">{{ merchant.id }}</a>
+              </td>
+              <td>{{ merchant.name }}</td>
+              <td>{{ merchant.mcc }}</td>
+              <td>{{ merchant.postalCode }}</td>
+              <td>{{ merchant.website }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/advice']"
+                    [queryParams]="{ 'filter[merchantId.in]': merchant.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      stpTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('simulatorApp.merchant.advice' | translate) }"
+                      >Show Advice</span
+                    >
+                  </button>
+                  <a [routerLink]="['/merchant', merchant.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/merchant', merchant.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(merchant)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (merchants && merchants.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

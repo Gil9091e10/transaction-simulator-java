@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (messageTypeIndicator(); as messageTypeIndicatorRef) {
+      <div>
+        <h2 data-cy="messageTypeIndicatorDetailsHeading">
+          <span stpTranslate="simulatorApp.messageTypeIndicator.detail.title">Message Type Indicator</span>
+        </h2>
+
+        <hr />
+
+        <stp-alert-error></stp-alert-error>
+
+        <stp-alert></stp-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span stpTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ messageTypeIndicatorRef.id }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageTypeIndicator.name">Name</span></dt>
+          <dd>
+            <span>{{ messageTypeIndicatorRef.name }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.messageTypeIndicator.code">Code</span></dt>
+          <dd>
+            <span>{{ messageTypeIndicatorRef.code }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span stpTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/message-type-indicator', messageTypeIndicatorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span stpTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

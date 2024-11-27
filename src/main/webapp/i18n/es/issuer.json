@@ -1,0 +1,26 @@
+{
+  "simulatorApp": {
+    "issuer": {
+      "home": {
+        "title": "Issuers",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Issuer",
+        "createOrEditLabel": "Crear o editar Issuer",
+        "notFound": "Ningún Issuers encontrado"
+      },
+      "created": "Un nuevo Issuer ha sido creado con el identificador {{ param }}",
+      "updated": "Un Issuer ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Issuer ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Issuer {{ id }}?"
+      },
+      "detail": {
+        "title": "Issuer"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "card": "Card"
+    }
+  }
+}

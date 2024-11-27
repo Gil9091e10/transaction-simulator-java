@@ -1,0 +1,23 @@
+{
+  "simulatorApp": {
+    "debitCard": {
+      "home": {
+        "title": "Debit Cards",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Debit Card",
+        "createOrEditLabel": "Crear o editar Debit Card",
+        "notFound": "Ningún Debit Cards encontrado"
+      },
+      "created": "Un nuevo Debit Card ha sido creado con el identificador {{ param }}",
+      "updated": "Un Debit Card ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Debit Card ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Debit Card {{ id }}?"
+      },
+      "detail": {
+        "title": "Debit Card"
+      },
+      "id": "ID"
+    }
+  }
+}

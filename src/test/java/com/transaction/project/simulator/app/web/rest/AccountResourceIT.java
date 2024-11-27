@@ -12,7 +12,7 @@ import com.transaction.project.simulator.app.repository.AuthorityRepository;
 import com.transaction.project.simulator.app.repository.UserRepository;
 import com.transaction.project.simulator.app.security.AuthoritiesConstants;
 import com.transaction.project.simulator.app.service.UserService;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
 import com.transaction.project.simulator.app.service.dto.PasswordChangeDTO;
 import com.transaction.project.simulator.app.web.rest.vm.KeyAndPasswordVM;
 import com.transaction.project.simulator.app.web.rest.vm.ManagedUserVM;
@@ -97,7 +97,7 @@ class AccountResourceIT {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.ADMIN);
 
-        AdminUserDTO user = new AdminUserDTO();
+        AdminUserDto user = new AdminUserDto();
         user.setLogin(TEST_USER_LOGIN);
         user.setFirstName("john");
         user.setLastName("doe");
@@ -331,7 +331,7 @@ class AccountResourceIT {
         assertThat(testUser4.orElseThrow().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 
         testUser4.orElseThrow().setActivated(true);
-        userService.updateUser((new AdminUserDTO(testUser4.orElseThrow())));
+        userService.updateUser((new AdminUserDto(testUser4.orElseThrow())));
 
         // Register 4th (already activated) user
         restAccountMockMvc
@@ -406,7 +406,7 @@ class AccountResourceIT {
         user.setActivated(true);
         userRepository.saveAndFlush(user);
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -445,7 +445,7 @@ class AccountResourceIT {
 
         userRepository.saveAndFlush(user);
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -483,7 +483,7 @@ class AccountResourceIT {
 
         userRepository.saveAndFlush(anotherUser);
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -515,7 +515,7 @@ class AccountResourceIT {
         user.setActivated(true);
         userRepository.saveAndFlush(user);
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");

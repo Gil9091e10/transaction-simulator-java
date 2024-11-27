@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (creditCard(); as creditCardRef) {
+      <div>
+        <h2 data-cy="creditCardDetailsHeading"><span stpTranslate="simulatorApp.creditCard.detail.title">Credit Card</span></h2>
+
+        <hr />
+
+        <stp-alert-error></stp-alert-error>
+
+        <stp-alert></stp-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span stpTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ creditCardRef.id }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.creditCard.maxLimit">Max Limit</span></dt>
+          <dd>
+            <span>{{ creditCardRef.maxLimit }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span stpTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/credit-card', creditCardRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span stpTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "annotations": {
+    "changelogDate": "20241127065805"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [],
+  "jpaMetamodelFiltering": true,
+  "name": "DebitCard",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

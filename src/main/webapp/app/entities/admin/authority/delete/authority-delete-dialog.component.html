@@ -1,0 +1,28 @@
+@if (authority) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(authority.name!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="authorityDeleteDialogHeading" stpTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <stp-alert-error></stp-alert-error>
+      <p
+        id="stp-delete-authority-heading"
+        stpTranslate="simulatorApp.adminAuthority.delete.question"
+        [translateValues]="{ id: authority.name }"
+      >
+        ¿Seguro que quiere eliminar Authority {{ authority.name }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="stp-confirm-delete-authority" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span stpTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

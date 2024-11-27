@@ -11,7 +11,7 @@ import com.transaction.project.simulator.app.domain.User;
 import com.transaction.project.simulator.app.repository.UserRepository;
 import com.transaction.project.simulator.app.security.AuthoritiesConstants;
 import com.transaction.project.simulator.app.service.UserService;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
 import com.transaction.project.simulator.app.service.mapper.UserMapper;
 import jakarta.persistence.EntityManager;
 import java.util.*;
@@ -142,7 +142,7 @@ class UserResourceIT {
     @Transactional
     void createUser() throws Exception {
         // Create the User
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin(DEFAULT_LOGIN);
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
         userDTO.setLastName(DEFAULT_LASTNAME);
@@ -152,17 +152,17 @@ class UserResourceIT {
         userDTO.setLangKey(DEFAULT_LANGKEY);
         userDTO.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
-        var returnedUserDTO = om.readValue(
+        var returnedUserDto = om.readValue(
             restUserMockMvc
                 .perform(post("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
                 .andExpect(status().isCreated())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(),
-            AdminUserDTO.class
+            AdminUserDto.class
         );
 
-        User convertedUser = userMapper.userDTOToUser(returnedUserDTO);
+        User convertedUser = userMapper.userDTOToUser(returnedUserDto);
         // Validate the returned User
         assertThat(convertedUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
         assertThat(convertedUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
@@ -177,7 +177,7 @@ class UserResourceIT {
     void createUserWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setId(DEFAULT_ID);
         userDTO.setLogin(DEFAULT_LOGIN);
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
@@ -204,7 +204,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(user);
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin(DEFAULT_LOGIN); // this login should already be used
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
         userDTO.setLastName(DEFAULT_LASTNAME);
@@ -230,7 +230,7 @@ class UserResourceIT {
         userRepository.saveAndFlush(user);
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setLogin("anotherlogin");
         userDTO.setFirstName(DEFAULT_FIRSTNAME);
         userDTO.setLastName(DEFAULT_LASTNAME);
@@ -307,7 +307,7 @@ class UserResourceIT {
         // Update the user
         User updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setId(updatedUser.getId());
         userDTO.setLogin(updatedUser.getLogin());
         userDTO.setFirstName(UPDATED_FIRSTNAME);
@@ -348,7 +348,7 @@ class UserResourceIT {
         // Update the user
         User updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setId(updatedUser.getId());
         userDTO.setLogin(UPDATED_LOGIN);
         userDTO.setFirstName(UPDATED_FIRSTNAME);
@@ -400,7 +400,7 @@ class UserResourceIT {
         // Update the user
         User updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setId(updatedUser.getId());
         userDTO.setLogin(updatedUser.getLogin());
         userDTO.setFirstName(updatedUser.getFirstName());
@@ -440,7 +440,7 @@ class UserResourceIT {
         // Update the user
         User updatedUser = userRepository.findById(user.getId()).orElseThrow();
 
-        AdminUserDTO userDTO = new AdminUserDTO();
+        AdminUserDto userDTO = new AdminUserDto();
         userDTO.setId(updatedUser.getId());
         userDTO.setLogin("jhipster"); // this login should already be used by anotherUser
         userDTO.setFirstName(updatedUser.getFirstName());

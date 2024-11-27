@@ -1,0 +1,48 @@
+{
+  "annotations": {
+    "changelogDate": "20241127065756"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "socketUrl",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Acquirer",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "advice",
+      "otherEntityRelationshipName": "acquirer",
+      "relationshipName": "advice",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "messageIsoConfig",
+      "otherEntityRelationshipName": "acquirer",
+      "relationshipName": "messageIsoConfig",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -22,6 +22,19 @@ In the project root, JHipster generates configuration files for tools like git, 
 
 ## Development
 
+### Doing API-First development using openapi-generator-cli
+
+[OpenAPI-Generator]() is configured for this application. You can generate API code from the `src/main/resources/swagger/api.yml` definition file by running:
+
+```bash
+./mvnw generate-sources
+```
+
+Then implements the generated delegate classes with `@Service` classes.
+
+To edit the `api.yml` definition file, you can use a tool such as [Swagger-Editor](). Start a local instance of the swagger-editor using docker by running: `docker compose -f src/main/docker/swagger-editor.yml up -d`. The editor will then be reachable at [http://localhost:7742](http://localhost:7742).
+
+Refer to [Doing API-First development][] for more details.
 The build system will install automatically the recommended version of Node and npm.
 
 We provide a wrapper to launch npm.
@@ -31,13 +44,13 @@ You will only need to run this command when dependencies change in [package.json
 ./npmw install
 ```
 
-We use npm scripts and [Webpack][] as our build system.
+We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
 
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
 ```
-./gradlew -x webapp
+./mvnw
 ./npmw start
 ```
 
@@ -51,19 +64,11 @@ The `./npmw run` command will list all the scripts available to run for this pro
 
 JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
 
-The service worker initialization code is commented out by default. To enable it, uncomment the following code in `src/main/webapp/index.html`:
+The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.config.ts`:
 
-```html
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function () {
-      console.log('Service Worker Registered');
-    });
-  }
-</script>
+```typescript
+ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
 ```
-
-Note: [Workbox](https://developers.google.com/web/tools/workbox/) powers JHipster's service worker. It dynamically generates the `service-worker.js` file.
 
 ### Managing dependencies
 
@@ -80,9 +85,39 @@ To benefit from TypeScript type definitions from [DefinitelyTyped][] repository 
 ```
 
 Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
+Edit [src/main/webapp/app/app.config.ts](src/main/webapp/app/app.config.ts) file:
+
+```
+import 'leaflet/dist/leaflet.js';
+```
+
+Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
+
+```
+@import 'leaflet/dist/leaflet.css';
+```
+
 Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
 
 For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
+
+### Using Angular CLI
+
+You can also use [Angular CLI][] to generate some custom client code.
+
+For example, the following command:
+
+```
+ng generate component my-component
+```
+
+will generate few files:
+
+```
+create src/main/webapp/app/my-component/my-component.component.html
+create src/main/webapp/app/my-component/my-component.component.ts
+update src/main/webapp/app/app.config.ts
+```
 
 ## Building for production
 
@@ -91,14 +126,14 @@ For further instructions on how to develop with JHipster, have a look at [Using 
 To build the final jar and optimize the simulator application for production, run:
 
 ```
-./gradlew -Pprod clean bootJar
+./mvnw -Pprod clean verify
 ```
 
 This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
 To ensure everything worked, run:
 
 ```
-java -jar build/libs/*.jar
+java -jar target/*.jar
 ```
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
@@ -110,7 +145,7 @@ Refer to [Using JHipster in production][] for more details.
 To package your application as a war in order to deploy it to an application server, run:
 
 ```
-./gradlew -Pprod -Pwar clean bootWar
+./mvnw -Pprod,war clean verify
 ```
 
 ### JHipster Control Center
@@ -128,7 +163,7 @@ docker compose -f src/main/docker/jhipster-control-center.yml up
 To launch your application's tests, run:
 
 ```
-./gradlew test integrationTest jacocoTestReport
+./mvnw verify
 ```
 
 ### Client tests
@@ -151,12 +186,18 @@ docker compose -f src/main/docker/sonar.yml up -d
 
 Note: we have turned off forced authentication redirect for UI in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
 
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the gradle plugin.
+You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the maven plugin.
 
 Then, run a Sonar analysis:
 
 ```
-./gradlew -Pprod clean check jacocoTestReport sonarqube -Dsonar.login=admin -Dsonar.password=admin
+./mvnw -Pprod clean verify sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+```
+
+If you need to re-run the Sonar phase, please be sure to specify at least the `initialize` phase since Sonar properties are loaded from the sonar-project.properties file.
+
+```
+./mvnw initialize sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
 ```
 
 Additionally, Instead of passing `sonar.password` and `sonar.login` as CLI arguments, these parameters can be configured from [sonar-project.properties](sonar-project.properties) as shown below:
@@ -229,8 +270,12 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v8.7.3/setting-up-ci/
 [Node.js]: https://nodejs.org/
 [NPM]: https://www.npmjs.com/
+[OpenAPI-Generator]: https://openapi-generator.tech
+[Swagger-Editor]: https://editor.swagger.io
+[Doing API-First development]: https://www.jhipster.tech/documentation-archive/v8.7.3/doing-api-first-development/
 [Webpack]: https://webpack.github.io/
 [BrowserSync]: https://www.browsersync.io/
 [Jest]: https://facebook.github.io/jest/
 [Leaflet]: https://leafletjs.com/
 [DefinitelyTyped]: https://definitelytyped.org/
+[Angular CLI]: https://cli.angular.io/

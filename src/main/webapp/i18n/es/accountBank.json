@@ -1,0 +1,28 @@
+{
+  "simulatorApp": {
+    "accountBank": {
+      "home": {
+        "title": "Account Banks",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Account Bank",
+        "createOrEditLabel": "Crear o editar Account Bank",
+        "notFound": "Ningún Account Banks encontrado"
+      },
+      "created": "Un nuevo Account Bank ha sido creado con el identificador {{ param }}",
+      "updated": "Un Account Bank ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Account Bank ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Account Bank {{ id }}?"
+      },
+      "detail": {
+        "title": "Account Bank"
+      },
+      "id": "ID",
+      "number": "Number",
+      "numberIBAN": "Number IBAN",
+      "balance": "Balance",
+      "card": "Card",
+      "currency": "Currency"
+    }
+  }
+}

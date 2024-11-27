@@ -1,0 +1,162 @@
+<div>
+  <h2 id="page-heading" data-cy="CardHeading">
+    <span stpTranslate="simulatorApp.card.home.title">Cards</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.card.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-card"
+        [routerLink]="['/card/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.card.home.createLabel">Crear nuevo Card</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (cards?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.card.home.notFound">Ningún Cards encontrado</span>
+    </div>
+  }
+
+  @if (cards && cards.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="number">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.number">Number</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="expirationDate">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.expirationDate">Expiration Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="verificationValue">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.verificationValue">Verification Value</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="accountBank.id">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.accountBank">Account Bank</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="cardType.id">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.cardType">Card Type</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="issuer.id">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.card.issuer">Issuer</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (card of cards; track trackId(card)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/card', card.id, 'view']">{{ card.id }}</a>
+              </td>
+              <td>{{ card.number }}</td>
+              <td>{{ card.expirationDate | formatMediumDate }}</td>
+              <td>{{ card.verificationValue }}</td>
+              <td>
+                @if (card.accountBank) {
+                  <div>
+                    <a [routerLink]="['/account-bank', card.accountBank.id, 'view']">{{ card.accountBank.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (card.cardType) {
+                  <div>
+                    <a [routerLink]="['/card-type', card.cardType.id, 'view']">{{ card.cardType.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (card.issuer) {
+                  <div>
+                    <a [routerLink]="['/issuer', card.issuer.id, 'view']">{{ card.issuer.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/card', card.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/card', card.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(card)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (cards && cards.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

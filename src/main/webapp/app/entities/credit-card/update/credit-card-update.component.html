@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="stp-credit-card-heading"
+        data-cy="CreditCardCreateUpdateHeading"
+        stpTranslate="simulatorApp.creditCard.home.createOrEditLabel"
+      >
+        Crear o editar Credit Card
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.creditCard.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let maxLimitRef = editForm.get('maxLimit')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_maxLimit" stpTranslate="simulatorApp.creditCard.maxLimit">Max Limit</label>
+          <input type="number" class="form-control" name="maxLimit" id="field_maxLimit" data-cy="maxLimit" formControlName="maxLimit" />
+          @if (maxLimitRef.invalid && (maxLimitRef.dirty || maxLimitRef.touched)) {
+            <div>
+              @if (editForm.get('maxLimit')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('maxLimit')?.errors?.number"
+                stpTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

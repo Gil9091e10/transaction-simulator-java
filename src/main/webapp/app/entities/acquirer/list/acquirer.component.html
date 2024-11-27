@@ -1,0 +1,153 @@
+<div>
+  <h2 id="page-heading" data-cy="AcquirerHeading">
+    <span stpTranslate="simulatorApp.acquirer.home.title">Acquirers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span stpTranslate="simulatorApp.acquirer.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-acquirer"
+        [routerLink]="['/acquirer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span stpTranslate="simulatorApp.acquirer.home.createLabel">Crear nuevo Acquirer</span>
+      </button>
+    </div>
+  </h2>
+
+  <stp-alert-error></stp-alert-error>
+
+  <stp-alert></stp-alert>
+
+  <stp-filter [filters]="filters"></stp-filter>
+
+  @if (acquirers?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span stpTranslate="simulatorApp.acquirer.home.notFound">Ningún Acquirers encontrado</span>
+    </div>
+  }
+
+  @if (acquirers && acquirers.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr stpSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" stpSortBy="id">
+              <div class="d-flex">
+                <span stpTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="name">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.acquirer.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="socketUrl">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.acquirer.socketUrl">Socket Url</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" stpSortBy="email">
+              <div class="d-flex">
+                <span stpTranslate="simulatorApp.acquirer.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (acquirer of acquirers; track trackId(acquirer)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/acquirer', acquirer.id, 'view']">{{ acquirer.id }}</a>
+              </td>
+              <td>{{ acquirer.name }}</td>
+              <td>{{ acquirer.socketUrl }}</td>
+              <td>{{ acquirer.email }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/advice']"
+                    [queryParams]="{ 'filter[acquirerId.in]': acquirer.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      stpTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('simulatorApp.acquirer.advice' | translate) }"
+                      >Show Advice</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/message-iso-config']"
+                    [queryParams]="{ 'filter[acquirerId.in]': acquirer.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      stpTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('simulatorApp.acquirer.messageIsoConfig' | translate) }"
+                      >Show Message Iso Config</span
+                    >
+                  </button>
+                  <a [routerLink]="['/acquirer', acquirer.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/acquirer', acquirer.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(acquirer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" stpTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (acquirers && acquirers.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <stp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></stp-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

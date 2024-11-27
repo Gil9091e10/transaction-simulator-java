@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20241127065804"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "message",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Transaction",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "transactionType",
+      "otherEntityRelationshipName": "transaction",
+      "relationshipName": "transactionType",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

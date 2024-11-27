@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (acquirer(); as acquirerRef) {
+      <div>
+        <h2 data-cy="acquirerDetailsHeading"><span stpTranslate="simulatorApp.acquirer.detail.title">Acquirer</span></h2>
+
+        <hr />
+
+        <stp-alert-error></stp-alert-error>
+
+        <stp-alert></stp-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span stpTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ acquirerRef.id }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.acquirer.name">Name</span></dt>
+          <dd>
+            <span>{{ acquirerRef.name }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.acquirer.socketUrl">Socket Url</span></dt>
+          <dd>
+            <span>{{ acquirerRef.socketUrl }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.acquirer.email">Email</span></dt>
+          <dd>
+            <span>{{ acquirerRef.email }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span stpTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/acquirer', acquirerRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span stpTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="stp-acquirer-heading" data-cy="AcquirerCreateUpdateHeading" stpTranslate="simulatorApp.acquirer.home.createOrEditLabel">
+        Crear o editar Acquirer
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.acquirer.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" stpTranslate="simulatorApp.acquirer.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '50' }"
+                  >Este campo no puede superar más de 50 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let socketUrlRef = editForm.get('socketUrl')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_socketUrl" stpTranslate="simulatorApp.acquirer.socketUrl">Socket Url</label>
+          <input type="text" class="form-control" name="socketUrl" id="field_socketUrl" data-cy="socketUrl" formControlName="socketUrl" />
+          @if (socketUrlRef.invalid && (socketUrlRef.dirty || socketUrlRef.touched)) {
+            <div>
+              @if (editForm.get('socketUrl')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('socketUrl')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '255' }"
+                  >Este campo no puede superar más de 255 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let emailRef = editForm.get('email')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_email" stpTranslate="simulatorApp.acquirer.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
+            <div>
+              @if (editForm.get('email')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('email')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '100' }"
+                  >Este campo no puede superar más de 100 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

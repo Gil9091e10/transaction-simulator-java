@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="stp-account-bank-heading"
+        data-cy="AccountBankCreateUpdateHeading"
+        stpTranslate="simulatorApp.accountBank.home.createOrEditLabel"
+      >
+        Crear o editar Account Bank
+      </h2>
+
+      <div>
+        <stp-alert-error></stp-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" stpTranslate="simulatorApp.accountBank.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let numberRef = editForm.get('number')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_number" stpTranslate="simulatorApp.accountBank.number">Number</label>
+          <input type="number" class="form-control" name="number" id="field_number" data-cy="number" formControlName="number" />
+          @if (numberRef.invalid && (numberRef.dirty || numberRef.touched)) {
+            <div>
+              @if (editForm.get('number')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('number')?.errors?.number"
+                stpTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let numberIBANRef = editForm.get('numberIBAN')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_numberIBAN" stpTranslate="simulatorApp.accountBank.numberIBAN">Number IBAN</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numberIBAN"
+            id="field_numberIBAN"
+            data-cy="numberIBAN"
+            formControlName="numberIBAN"
+          />
+          @if (numberIBANRef.invalid && (numberIBANRef.dirty || numberIBANRef.touched)) {
+            <div>
+              @if (editForm.get('numberIBAN')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              @if (editForm.get('numberIBAN')?.errors?.maxlength) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.maxlength" [translateValues]="{ max: '20' }"
+                  >Este campo no puede superar más de 20 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let balanceRef = editForm.get('balance')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_balance" stpTranslate="simulatorApp.accountBank.balance">Balance</label>
+          <input type="number" class="form-control" name="balance" id="field_balance" data-cy="balance" formControlName="balance" />
+          @if (balanceRef.invalid && (balanceRef.dirty || balanceRef.touched)) {
+            <div>
+              @if (editForm.get('balance')?.errors?.required) {
+                <small class="form-text text-danger" stpTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('balance')?.errors?.number"
+                stpTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currency" stpTranslate="simulatorApp.accountBank.currency">Currency</label>
+          <select
+            class="form-control"
+            id="field_currency"
+            data-cy="currency"
+            name="currency"
+            formControlName="currency"
+            [compareWith]="compareCurrency"
+          >
+            <option [ngValue]="null"></option>
+            @for (currencyOption of currenciesSharedCollection; track $index) {
+              <option [ngValue]="currencyOption">{{ currencyOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span stpTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span stpTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

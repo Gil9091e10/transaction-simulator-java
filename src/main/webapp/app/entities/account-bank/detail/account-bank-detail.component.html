@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (accountBank(); as accountBankRef) {
+      <div>
+        <h2 data-cy="accountBankDetailsHeading"><span stpTranslate="simulatorApp.accountBank.detail.title">Account Bank</span></h2>
+
+        <hr />
+
+        <stp-alert-error></stp-alert-error>
+
+        <stp-alert></stp-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span stpTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ accountBankRef.id }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.accountBank.number">Number</span></dt>
+          <dd>
+            <span>{{ accountBankRef.number }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.accountBank.numberIBAN">Number IBAN</span></dt>
+          <dd>
+            <span>{{ accountBankRef.numberIBAN }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.accountBank.balance">Balance</span></dt>
+          <dd>
+            <span>{{ accountBankRef.balance }}</span>
+          </dd>
+          <dt><span stpTranslate="simulatorApp.accountBank.currency">Currency</span></dt>
+          <dd>
+            @if (accountBank()!.currency) {
+              <div>
+                <a [routerLink]="['/currency', accountBank()!.currency?.id, 'view']">{{ accountBankRef.currency?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span stpTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/account-bank', accountBankRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span stpTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
