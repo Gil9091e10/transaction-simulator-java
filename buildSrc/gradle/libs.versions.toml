@@ -3,6 +3,7 @@
 # jhipster-needle-gradle-build-src-dependency-catalog-version - Deprecated: JHipster will add additional versions for convention plugins here
 
 [libraries]
+openapi-generator = { module = "org.openapitools:openapi-generator-gradle-plugin", version = "7.9.0" }
 jib-plugin = { module = "com.google.cloud.tools:jib-gradle-plugin", version = "3.4.4" }
 modernizer-plugin = { module = "com.github.andygoossens:gradle-modernizer-plugin", version = "1.9.3" }
 nohttp-plugin = { module = "io.spring.nohttp:nohttp-gradle", version = "0.0.11" }

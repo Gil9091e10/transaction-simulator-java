@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012903"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "mcc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "postalCode",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "website",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Merchant",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "advice",
+      "otherEntityRelationshipName": "merchant",
+      "relationshipName": "advice",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

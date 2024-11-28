@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Card.
+    -->
+    <changeSet id="20241128012909-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="account_bank_id"
+                                 baseTableName="card"
+                                 constraintName="fk_card__account_bank_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="account_bank"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="card_type_id"
+                                 baseTableName="card"
+                                 constraintName="fk_card__card_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="card_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="issuer_id"
+                                 baseTableName="card"
+                                 constraintName="fk_card__issuer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="issuer"
+                                 />
+    </changeSet>
+</databaseChangeLog>

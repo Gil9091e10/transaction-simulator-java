@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.transaction.project.simulator.app.domain.Authority;
 import com.transaction.project.simulator.app.domain.User;
 import com.transaction.project.simulator.app.security.AuthoritiesConstants;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
-import com.transaction.project.simulator.app.service.dto.UserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
+import com.transaction.project.simulator.app.service.dto.UserDto;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,7 +26,7 @@ class UserMapperTest {
 
     private UserMapper userMapper;
     private User user;
-    private AdminUserDTO userDto;
+    private AdminUserDto userDto;
 
     @BeforeEach
     public void init() {
@@ -51,12 +51,12 @@ class UserMapperTest {
         authorities.add(authority);
         user.setAuthorities(authorities);
 
-        userDto = new AdminUserDTO(user);
+        userDto = new AdminUserDto(user);
     }
 
     @Test
     void testUserToUserDTO() {
-        AdminUserDTO convertedUserDto = userMapper.userToAdminUserDTO(user);
+        AdminUserDto convertedUserDto = userMapper.userToAdminUserDTO(user);
 
         assertThat(convertedUserDto.getId()).isEqualTo(user.getId());
         assertThat(convertedUserDto.getLogin()).isEqualTo(user.getLogin());
@@ -98,14 +98,14 @@ class UserMapperTest {
         users.add(user);
         users.add(null);
 
-        List<UserDTO> userDTOS = userMapper.usersToUserDTOs(users);
+        List<UserDto> userDTOS = userMapper.usersToUserDTOs(users);
 
         assertThat(userDTOS).isNotEmpty().size().isEqualTo(1);
     }
 
     @Test
     void userDTOsToUsersShouldMapOnlyNonNullUsers() {
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
         usersDto.add(null);
 
@@ -120,7 +120,7 @@ class UserMapperTest {
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
         List<User> users = userMapper.userDTOsToUsers(usersDto);
@@ -135,7 +135,7 @@ class UserMapperTest {
     void userDTOsToUsersMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
         userDto.setAuthorities(null);
 
-        List<AdminUserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDto> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
         List<User> users = userMapper.userDTOsToUsers(usersDto);

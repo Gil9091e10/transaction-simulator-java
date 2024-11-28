@@ -1,0 +1,26 @@
+{
+  "simulatorApp": {
+    "transactionType": {
+      "home": {
+        "title": "Transaction Types",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Transaction Type",
+        "createOrEditLabel": "Crear o editar Transaction Type",
+        "notFound": "Ningún Transaction Types encontrado"
+      },
+      "created": "Un nuevo Transaction Type ha sido creado con el identificador {{ param }}",
+      "updated": "Un Transaction Type ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Transaction Type ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Transaction Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Transaction Type"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "transaction": "Transaction"
+    }
+  }
+}

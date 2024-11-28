@@ -1,0 +1,25 @@
+{
+  "simulatorApp": {
+    "cardType": {
+      "home": {
+        "title": "Card Types",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Card Type",
+        "createOrEditLabel": "Crear o editar Card Type",
+        "notFound": "Ningún Card Types encontrado"
+      },
+      "created": "Un nuevo Card Type ha sido creado con el identificador {{ param }}",
+      "updated": "Un Card Type ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Card Type ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Card Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Card Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "card": "Card"
+    }
+  }
+}

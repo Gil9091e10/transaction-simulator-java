@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012856"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "4"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "MessageTypeIndicator",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "messageIsoConfig",
+      "otherEntityRelationshipName": "messageTypeIndicator",
+      "relationshipName": "messageIsoConfig",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

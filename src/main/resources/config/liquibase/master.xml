@@ -11,7 +11,31 @@
     <property name="datetimeType" value="datetime(6)" dbms="mysql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012856_added_entity_MessageTypeIndicator.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012857_added_entity_MessageIsoConfig.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012858_added_entity_MessageFieldsConfig.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012859_added_entity_MessageFieldType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012900_added_entity_FieldType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012901_added_entity_Currency.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012902_added_entity_Acquirer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012903_added_entity_Merchant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012904_added_entity_Issuer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012905_added_entity_Advice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012906_added_entity_AccountBank.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012907_added_entity_CardType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012908_added_entity_TransactionType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012909_added_entity_Card.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012910_added_entity_Transaction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012911_added_entity_DebitCard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012912_added_entity_CreditCard.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20241128012857_added_entity_constraints_MessageIsoConfig.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012858_added_entity_constraints_MessageFieldsConfig.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012859_added_entity_constraints_MessageFieldType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012905_added_entity_constraints_Advice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012906_added_entity_constraints_AccountBank.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012909_added_entity_constraints_Card.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241128012910_added_entity_constraints_Transaction.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

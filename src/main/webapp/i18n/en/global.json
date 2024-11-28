@@ -7,7 +7,24 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "messageTypeIndicator": "Message Type Indicator",
+        "messageIsoConfig": "Message Iso Config",
+        "messageFieldsConfig": "Message Fields Config",
+        "messageFieldType": "Message Field Type",
+        "fieldType": "Field Type",
+        "currency": "Currency",
+        "acquirer": "Acquirer",
+        "merchant": "Merchant",
+        "issuer": "Issuer",
+        "advice": "Advice",
+        "accountBank": "Account Bank",
+        "cardType": "Card Type",
+        "transactionType": "Transaction Type",
+        "card": "Card",
+        "transaction": "Transaction",
+        "debitCard": "Debit Card",
+        "creditCard": "Credit Card"
       },
       "account": {
         "main": "Account",

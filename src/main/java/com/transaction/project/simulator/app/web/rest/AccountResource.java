@@ -5,7 +5,7 @@ import com.transaction.project.simulator.app.repository.UserRepository;
 import com.transaction.project.simulator.app.security.SecurityUtils;
 import com.transaction.project.simulator.app.service.MailService;
 import com.transaction.project.simulator.app.service.UserService;
-import com.transaction.project.simulator.app.service.dto.AdminUserDTO;
+import com.transaction.project.simulator.app.service.dto.AdminUserDto;
 import com.transaction.project.simulator.app.service.dto.PasswordChangeDTO;
 import com.transaction.project.simulator.app.web.rest.errors.*;
 import com.transaction.project.simulator.app.web.rest.vm.KeyAndPasswordVM;
@@ -85,10 +85,10 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be returned.
      */
     @GetMapping("/account")
-    public AdminUserDTO getAccount() {
+    public AdminUserDto getAccount() {
         return userService
             .getUserWithAuthorities()
-            .map(AdminUserDTO::new)
+            .map(AdminUserDto::new)
             .orElseThrow(() -> new AccountResourceException("User could not be found"));
     }
 
@@ -100,7 +100,7 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user login wasn't found.
      */
     @PostMapping("/account")
-    public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
+    public void saveAccount(@Valid @RequestBody AdminUserDto userDTO) {
         String userLogin = SecurityUtils.getCurrentUserLogin()
             .orElseThrow(() -> new AccountResourceException("Current user login not found"));
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());

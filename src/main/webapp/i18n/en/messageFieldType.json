@@ -1,0 +1,26 @@
+{
+  "simulatorApp": {
+    "messageFieldType": {
+      "home": {
+        "title": "Message Field Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Message Field Type",
+        "createOrEditLabel": "Create or edit a Message Field Type",
+        "notFound": "No Message Field Types found"
+      },
+      "created": "A new Message Field Type is created with identifier {{ param }}",
+      "updated": "A Message Field Type is updated with identifier {{ param }}",
+      "deleted": "A Message Field Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Message Field Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Message Field Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "messageFieldsConfig": "Message Fields Config",
+      "fieldType": "Field Type"
+    }
+  }
+}

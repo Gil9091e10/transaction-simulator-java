@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012905"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Advice",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "merchant",
+      "otherEntityRelationshipName": "advice",
+      "relationshipName": "merchant",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "acquirer",
+      "otherEntityRelationshipName": "advice",
+      "relationshipName": "acquirer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

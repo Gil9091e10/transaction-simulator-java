@@ -1,0 +1,28 @@
+{
+  "simulatorApp": {
+    "merchant": {
+      "home": {
+        "title": "Merchants",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Merchant",
+        "createOrEditLabel": "Crear o editar Merchant",
+        "notFound": "Ningún Merchants encontrado"
+      },
+      "created": "Un nuevo Merchant ha sido creado con el identificador {{ param }}",
+      "updated": "Un Merchant ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Merchant ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Merchant {{ id }}?"
+      },
+      "detail": {
+        "title": "Merchant"
+      },
+      "id": "ID",
+      "name": "Name",
+      "mcc": "Mcc",
+      "postalCode": "Postal Code",
+      "website": "Website",
+      "advice": "Advice"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "simulatorApp": {
+    "advice": {
+      "home": {
+        "title": "Advice",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Advice",
+        "createOrEditLabel": "Crear o editar Advice",
+        "notFound": "Ningún Advice encontrado"
+      },
+      "created": "Un nuevo Advice ha sido creado con el identificador {{ param }}",
+      "updated": "Un Advice ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Advice ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Advice {{ id }}?"
+      },
+      "detail": {
+        "title": "Advice"
+      },
+      "id": "ID",
+      "code": "Code",
+      "name": "Name",
+      "merchant": "Merchant",
+      "acquirer": "Acquirer"
+    }
+  }
+}

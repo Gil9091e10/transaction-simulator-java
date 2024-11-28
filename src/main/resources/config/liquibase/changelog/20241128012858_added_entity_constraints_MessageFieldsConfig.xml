@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity MessageFieldsConfig.
+    -->
+    <changeSet id="20241128012858-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="message_iso_config_id"
+                                 baseTableName="message_fields_config"
+                                 constraintName="fk_message_fields_config__message_iso_config_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message_iso_config"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="message_field_type_id"
+                                 baseTableName="message_fields_config"
+                                 constraintName="fk_message_fields_config__message_field_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message_field_type"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,27 @@
+{
+  "simulatorApp": {
+    "messageFieldsConfig": {
+      "home": {
+        "title": "Message Fields Configs",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Message Fields Config",
+        "createOrEditLabel": "Crear o editar Message Fields Config",
+        "notFound": "Ningún Message Fields Configs encontrado"
+      },
+      "created": "Un nuevo Message Fields Config ha sido creado con el identificador {{ param }}",
+      "updated": "Un Message Fields Config ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Message Fields Config ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Message Fields Config {{ id }}?"
+      },
+      "detail": {
+        "title": "Message Fields Config"
+      },
+      "id": "ID",
+      "name": "Name",
+      "fieldLength": "Field Length",
+      "messageIsoConfig": "Message Iso Config",
+      "messageFieldType": "Message Field Type"
+    }
+  }
+}

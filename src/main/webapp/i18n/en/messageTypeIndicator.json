@@ -1,0 +1,26 @@
+{
+  "simulatorApp": {
+    "messageTypeIndicator": {
+      "home": {
+        "title": "Message Type Indicators",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Message Type Indicator",
+        "createOrEditLabel": "Create or edit a Message Type Indicator",
+        "notFound": "No Message Type Indicators found"
+      },
+      "created": "A new Message Type Indicator is created with identifier {{ param }}",
+      "updated": "A Message Type Indicator is updated with identifier {{ param }}",
+      "deleted": "A Message Type Indicator is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Message Type Indicator {{ id }}?"
+      },
+      "detail": {
+        "title": "Message Type Indicator"
+      },
+      "id": "ID",
+      "name": "Name",
+      "code": "Code",
+      "messageIsoConfig": "Message Iso Config"
+    }
+  }
+}

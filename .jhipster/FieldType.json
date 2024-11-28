@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012900"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "FieldType",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "messageFieldType",
+      "otherEntityRelationshipName": "fieldType",
+      "relationshipName": "messageFieldType",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

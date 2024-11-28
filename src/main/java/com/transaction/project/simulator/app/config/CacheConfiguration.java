@@ -50,6 +50,34 @@ public class CacheConfiguration {
             createCache(cm, com.transaction.project.simulator.app.domain.User.class.getName());
             createCache(cm, com.transaction.project.simulator.app.domain.Authority.class.getName());
             createCache(cm, com.transaction.project.simulator.app.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageTypeIndicator.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageTypeIndicator.class.getName() + ".messageIsoConfigs");
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageIsoConfig.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageIsoConfig.class.getName() + ".messageFieldsConfigs");
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageFieldsConfig.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageFieldType.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.MessageFieldType.class.getName() + ".messageFieldsConfigs");
+            createCache(cm, com.transaction.project.simulator.app.domain.FieldType.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.FieldType.class.getName() + ".messageFieldTypes");
+            createCache(cm, com.transaction.project.simulator.app.domain.Currency.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.Currency.class.getName() + ".accountBanks");
+            createCache(cm, com.transaction.project.simulator.app.domain.Acquirer.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.Acquirer.class.getName() + ".advice");
+            createCache(cm, com.transaction.project.simulator.app.domain.Acquirer.class.getName() + ".messageIsoConfigs");
+            createCache(cm, com.transaction.project.simulator.app.domain.Merchant.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.Merchant.class.getName() + ".advice");
+            createCache(cm, com.transaction.project.simulator.app.domain.Issuer.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.Issuer.class.getName() + ".cards");
+            createCache(cm, com.transaction.project.simulator.app.domain.Advice.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.AccountBank.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.CardType.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.CardType.class.getName() + ".cards");
+            createCache(cm, com.transaction.project.simulator.app.domain.TransactionType.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.TransactionType.class.getName() + ".transactions");
+            createCache(cm, com.transaction.project.simulator.app.domain.Card.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.Transaction.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.DebitCard.class.getName());
+            createCache(cm, com.transaction.project.simulator.app.domain.CreditCard.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

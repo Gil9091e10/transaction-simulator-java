@@ -1,7 +1,7 @@
 package com.transaction.project.simulator.app.web.rest;
 
 import com.transaction.project.simulator.app.service.UserService;
-import com.transaction.project.simulator.app.service.dto.UserDTO;
+import com.transaction.project.simulator.app.service.dto.UserDto;
 import java.util.*;
 import java.util.Collections;
 import org.slf4j.Logger;
@@ -39,13 +39,13 @@ public class PublicUserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
      */
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getAllPublicUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<UserDto>> getAllPublicUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         LOG.debug("REST request to get all public User names");
         if (!onlyContainsAllowedProperties(pageable)) {
             return ResponseEntity.badRequest().build();
         }
 
-        final Page<UserDTO> page = userService.getAllPublicUsers(pageable);
+        final Page<UserDto> page = userService.getAllPublicUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

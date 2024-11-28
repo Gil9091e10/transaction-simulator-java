@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012857"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "filename",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "MessageIsoConfig",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "acquirer",
+      "otherEntityRelationshipName": "messageIsoConfig",
+      "relationshipName": "acquirer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "messageTypeIndicator",
+      "otherEntityRelationshipName": "messageIsoConfig",
+      "relationshipName": "messageTypeIndicator",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "messageFieldsConfig",
+      "otherEntityRelationshipName": "messageIsoConfig",
+      "relationshipName": "messageFieldsConfig",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

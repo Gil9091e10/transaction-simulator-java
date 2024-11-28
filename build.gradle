@@ -5,6 +5,7 @@ plugins {
     id "eclipse"
     id "com.gorylenko.gradle-git-properties"
     alias(libs.plugins.spring.boot)
+    id "jhipster.openapi-generator-conventions"
     id "jhipster.cucumber-conventions"
     id "jhipster.spring-cache-conventions"
     id "jhipster.docker-conventions"
@@ -152,6 +153,7 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-test"
     testImplementation "org.springframework.security:spring-security-test"
     implementation platform(libs.spring.cloud.dependencies)
+    implementation libs.jackson.databind.nullable
     implementation libs.jhipster.framework
     implementation libs.springdoc.openapi.starter.webmvc.api
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"

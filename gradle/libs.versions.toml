@@ -7,6 +7,7 @@ checkstyle = "10.19.0"
 jhipster-framework = { module = "tech.jhipster:jhipster-framework", version = "8.7.2" }
 spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version = "2023.0.3" }
 springdoc-openapi-starter-webmvc-api = { module = "org.springdoc:springdoc-openapi-starter-webmvc-api", version = "2.6.0" }
+jackson-databind-nullable = { module = "org.openapitools:jackson-databind-nullable", version = "0.2.6" }
 cucumber-bom = { module = "io.cucumber:cucumber-bom", version = "7.20.1" }
 testng = { module = "org.testng:testng", version = "7.10.2" }
 # jhipster-needle-gradle-dependency-catalog-libraries - JHipster will add additional libraries versions

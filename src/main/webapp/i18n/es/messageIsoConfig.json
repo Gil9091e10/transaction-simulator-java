@@ -1,0 +1,28 @@
+{
+  "simulatorApp": {
+    "messageIsoConfig": {
+      "home": {
+        "title": "Message Iso Configs",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Message Iso Config",
+        "createOrEditLabel": "Crear o editar Message Iso Config",
+        "notFound": "Ningún Message Iso Configs encontrado"
+      },
+      "created": "Un nuevo Message Iso Config ha sido creado con el identificador {{ param }}",
+      "updated": "Un Message Iso Config ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Message Iso Config ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Message Iso Config {{ id }}?"
+      },
+      "detail": {
+        "title": "Message Iso Config"
+      },
+      "id": "ID",
+      "name": "Name",
+      "filename": "Filename",
+      "acquirer": "Acquirer",
+      "messageTypeIndicator": "Message Type Indicator",
+      "messageFieldsConfig": "Message Fields Config"
+    }
+  }
+}

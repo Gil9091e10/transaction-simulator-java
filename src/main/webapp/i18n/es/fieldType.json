@@ -1,0 +1,25 @@
+{
+  "simulatorApp": {
+    "fieldType": {
+      "home": {
+        "title": "Field Types",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Field Type",
+        "createOrEditLabel": "Crear o editar Field Type",
+        "notFound": "Ningún Field Types encontrado"
+      },
+      "created": "Un nuevo Field Type ha sido creado con el identificador {{ param }}",
+      "updated": "Un Field Type ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Field Type ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Field Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Field Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "messageFieldType": "Message Field Type"
+    }
+  }
+}

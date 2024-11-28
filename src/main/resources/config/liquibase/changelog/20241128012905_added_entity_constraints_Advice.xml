@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Advice.
+    -->
+    <changeSet id="20241128012905-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="merchant_id"
+                                 baseTableName="advice"
+                                 constraintName="fk_advice__merchant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="merchant"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="acquirer_id"
+                                 baseTableName="advice"
+                                 constraintName="fk_advice__acquirer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="acquirer"
+                                 />
+    </changeSet>
+</databaseChangeLog>

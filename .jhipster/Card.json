@@ -1,0 +1,50 @@
+{
+  "annotations": {
+    "changelogDate": "20241128012909"
+  },
+  "applications": ["simulator"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "expirationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "verificationValue",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Card",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "accountBank",
+      "otherEntityRelationshipName": "card",
+      "relationshipName": "accountBank",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "cardType",
+      "otherEntityRelationshipName": "card",
+      "relationshipName": "cardType",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "issuer",
+      "otherEntityRelationshipName": "card",
+      "relationshipName": "issuer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
