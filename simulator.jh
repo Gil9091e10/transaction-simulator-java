@@ -1,0 +1,137 @@
+application {
+  config {
+    baseName simulator
+    packageName com.transaction.project.simulator.app
+    applicationType monolith
+    authenticationType jwt
+    buildTool gradle
+    cacheProvider ehcache
+    clientPackageManager npm,
+    prodDatabaseType mysql,
+    clientFramework react,
+    databaseType sql
+    dtoSuffix Dto
+    jhiPrefix cfg
+    languages [es, en]
+    nativeLanguage es,
+    enableSwaggerCodegen true
+    clientTheme United
+    websocket spring-websocket
+    serverPort 8085
+  }
+  entities all
+}
+
+dto all with mapstruct
+service all with serviceImpl
+paginate all with pagination
+filter all
+
+entity MessageTypeIndicator {
+  name String required maxlength(50)
+  code String required maxlength(4)
+}
+
+entity MessageIsoConfig {
+  name String required maxlength(50)
+  filename String required maxlength(255)
+}
+
+entity MessageFieldsConfig {
+	name String required maxlength(50)
+    fieldLength Integer required min(1)
+}
+
+entity MessageFieldType {
+	name String required
+}
+
+entity FieldType {
+	name String required
+}
+
+entity Currency {
+  name String required maxlength(10)
+  code String required maxlength(5)
+}
+
+entity Acquirer {
+  name String required maxlength(50)
+  socketUrl String required maxlength(255)
+  email String required maxlength(100)
+}
+
+entity Merchant {
+  name String required maxlength(50)
+  mcc String required
+  postalCode Integer
+  website String
+}
+
+entity Issuer {
+  code String required maxlength(10)
+  name String required maxlength(50)
+}
+
+entity Advice {
+  code String required maxlength(10)
+  name String required maxlength(50)
+}
+
+entity AccountBank {
+  number Long required
+  numberIBAN String required maxlength(20)
+  balance BigDecimal required
+}
+
+entity CardType {
+  name String required maxlength(45)
+}
+
+entity TransactionType {
+  code String required maxlength(5)
+  name String required maxlength(50)
+}
+
+entity Card {
+  number Long required
+  expirationDate LocalDate
+  verificationValue Integer
+}
+
+entity Transaction {
+  date Instant required
+  message String required
+}
+
+entity DebitCard {
+
+}
+
+entity CreditCard {
+  maxLimit BigDecimal required
+}
+
+relationship OneToOne {
+  Card to AccountBank
+}
+
+relationship OneToMany {
+  Merchant to Advice
+  Acquirer to Advice
+  CardType to Card
+  Issuer to Card
+  Currency to AccountBank
+  TransactionType to Transaction
+  Acquirer to MessageIsoConfig
+  MessageTypeIndicator to MessageIsoConfig
+  MessageFieldType to MessageFieldsConfig
+  FieldType to MessageFieldType
+}
+
+relationship ManyToOne {
+	MessageFieldsConfig to MessageIsoConfig
+}
+
+
+
